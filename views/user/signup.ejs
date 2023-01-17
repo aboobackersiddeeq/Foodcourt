@@ -1,0 +1,143 @@
+ 
+
+
+<section class="vh-100" style="background-color: #fefffc;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100" >
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-5 d-none d-md-block">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                        </div>
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+
+                                <form action='/signup' method="post" autocomplete="off" onsubmit="return validation()" role="form" id="user-login"
+                                    enctype="application/x-www-form-urlencoded">
+
+                                    <div class="d-flex align-items-center mb-3 pb-1" style="margin-top: -12px; margin-left: -16px;">
+                                        <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                        <span class="h1 fw-bold mb-0">FOODCOURT</span>
+                                    </div>
+
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Signup your account
+                                    </h5>
+                                    <%if(errorMsg){%>
+                                    <%if(errorMsg.length>0){%>
+                                        <div class="alert alert-warning" role="alert">
+                                            <strong class="mx-2"> <%=errorMsg%></strong> 
+                                          </div>
+                            
+                                    <%}%>
+                                    <%}%>
+                                     
+                                    <div class="form-group ">
+                                        <label for="email">Name</label>
+                                        <input type="text" class="form-control" name="name" id="name"
+                                            placeholder="Full name" required minlength="2">
+
+                                        <div>
+                                            <div class="row mt-3">
+                                                <div class="form-group col-6">
+                                                    <label for="email">Email Address</label>
+                                                    <input type="email" class="form-control" name="email" id="email"
+                                                        placeholder="Email Address" required minlength="1">
+                                                </div>
+                                                <div class="form-group col-6">
+                                                    <label for="email">Phone No</label>
+                                                    <input type="number" class="form-control" name="phone" id="phone"
+                                                        placeholder="Eg:9746975809 ,Enter 10 no without usig +91"
+                                                        required minlength="10" maxlength="10">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group ">
+                                                <label for="pw">Password</label>
+                                              <input type="password" class="form-control" name="password" id="pw"
+                                                    required minlength="6" data-rule-pw="true">
+                                                    <span style="color: #ff3419; font-size: smaller;" id="password"></span>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label for="pw">Confirm Password</label>
+                                                <input type="password" class="form-control" name="cpassword" id="pwss"
+                                                    required minlength="6" data-rule-pw="true" data-rule-equalTo="#pw">
+                                            </div>
+
+                                            <div class="pt-1 mb-4"> 
+                                                <button class="btn  btn-lg btn-block"
+                                                style="background-color: #82ae46; color: #fbfbfb;" type="submit" >Signup</button>
+                                            </div>
+
+
+
+                                            <p class="mb-5 pb-lg-2" >You have an account? <a
+                                                    href="/login" style="color: #393f81; text-decoration: none;">login here</a></p>
+                                            
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $("#user-login").validate();
+    });  
+</script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script>
+    // just for the demos, avoids form submit
+    // jQuery.validator.setDefaults({
+    //     debug: true,
+    //     success: "valid"
+    // });
+    // $("#myform").validate({
+    //     rules: {
+    //         password: "required",
+    //         cpassword: {
+    //             equalTo: "#pw"
+    //         }
+    //     }
+    // });
+</script>
+<!-- <script>
+    $(document).ready(function () {
+        $("#basic-signup").validate();
+    });  
+</script> -->
+<script type="text/javascript">
+    function validation() {
+        let pass =document.getElementById('pw').value
+        if(pass== ' '){
+            document.getElementById('password').innerHTML="" 
+            return false
+        }
+        if(pass.length<6){
+            document.getElementById('password').innerHTML="" 
+            return false
+        }
+        if (pass.search(/[0-9]/)==-1) {
+            document.getElementById('password').innerHTML="Please enter at least 1 digit ."
+            return false
+        }
+        if (pass.search(/[a-zA-Z]/)==-1) {
+            document.getElementById('password').innerHTML="Please enter at least 1 letter   ."
+            return false
+        }
+        if (pass.search(/[!\@\#\$\%\?\^\&\*\_\-\=\+\(\)]/)==-1) {
+            document.getElementById('password').innerHTML="Please enter at least 1 special character"
+            return false
+        }else{
+            document.getElementById('password').innerHTML=""
+        }
+    }
+</script>

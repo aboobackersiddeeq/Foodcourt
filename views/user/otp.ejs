@@ -1,0 +1,56 @@
+<section class="vh-100" style="background-color: #fbfbfb;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5 ">
+
+                        <!-- jqury -->
+
+                        <script>
+                            $(document).ready(function () {
+                                $("#user-login").validate();
+                            });  
+                        </script>
+
+                        <form action='/otp' method="post" role="form" id="user-login"
+                            enctype="application/x-www-form-urlencoded">
+                            <legend>
+                                <h3>Foodcourt OTP Verification</h3>
+                            </legend>
+
+
+                            <div class="form-group">
+
+                                <label for="email">OTP</label>
+                                <input type="number" class="form-control" name="otp" id="otp"
+                                    placeholder="Please enter your otp" required>
+                                    <% if((errs)){ %>
+                    
+                                        <p style="color:red ;"> <%=errs%></p>
+                                      <%}else{%>
+                                       <p></p>
+                                       <%}%> 
+                            </div>
+                            
+                                <!-- <p style="color:red ;">Invalid password or email</p> -->
+                                
+
+
+
+                                        <button type="submit" class="btn btn-lg mb-4 " style="background-color: #82ae46; color: #fbfbfb;" >Verify </button>
+                                        <div class="form-group">
+                                             
+                                            <div class="row">
+                                                <div class="col-md-8  ">
+                                                     <a style="text-decoration: none;" href="/resend-otp">Resend otp</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

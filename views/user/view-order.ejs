@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<%- include('../partials/userHeader.ejs') %>
+  <!-- END nav -->
+
+  <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Orders</span></p>
+          <h1 class="mb-0 bread">My Orders</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+  <section class=" ftco-section ftco-cart">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12  ">
+          <div class="">
+            <%if (orders) { %>
+
+              <table class="table"  id="invoice">
+                <thead class="thead-primary">
+                  <tr class="text-center">
+                    
+
+                    <th>Date</th>
+                    <th>Address</th>
+                    <th>Payment Method</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>View Products</th>
+                    <th>Invoice</th>
+                  </tr>
+                </thead>
+                <% orders.forEach(function(orders,index){%>
+                  <tbody>
+                    <tr class="text-center">
+                      <td class="quantity ">
+                        <%=orders.date.toString().substring(0,15) %>
+                      </td>
+
+                      <td class="product-name">
+                        <p>
+                          <%=orders.address %>
+                        </p>
+                      </td>
+                      <td class="product-name">
+                        <h3>
+                          <%=orders.payment%>
+                        </h3>
+                      </td>
+                      <td class="total">
+                        <%=orders.total %>
+                      </td>
+                      <td class="product-name">
+                        <h3>
+                          <%=orders.status%>
+                        </h3>
+                      </td>
+
+                      <td ><a href=" " class="btn btn-primary" type="button" data-bs-toggle="modal"
+                          data-bs-target="#edit<%=orders._id%> "><span class="ion-ios-open"> </span> </a></td>
+                          <td>
+                          <a href="/invoice?id=<%=orders._id%>" class="btn btn-primary" type="button"><i  class="ion-ios-download" ></i></a>
+                        </td>
+
+                    </tr><!-- END TR-->
+
+                  </tbody>
+
+
+                  <!-- modal show products -->
+                  <section>
+
+                    <div class="modal fade" id="edit<%=orders._id%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Products details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body" >
+
+                            <form action="" class="billing-form" method="post"  >
+
+                              <div class="row align-items-end">
+                                <div class="">
+                                  <div class="form-group">
+                                    <% orders.products.forEach(function(pro,i){%>
+                                      
+
+                                      <div class="row">
+                                        <div class="col-3" style="width: 14px;">
+                                          <img src="<%=pro.item.images %>" class="card-img-top" alt="...">
+                                        </div>
+                                        <div class="col-9">
+                                          <h5 style="margin-bottom: 0%;">
+                                            <%=pro.item.title %>
+                                          </h5>
+                                          <p style="margin-bottom: 0%;">
+                                            <%=pro.item.description %>
+                                          </p>
+                                          <h6>Rs:<%=pro.item.price %>
+                                            <p style="color: rgb(34, 33, 33);">Quantity: <%=pro.quantity %>
+                                            </p>
+                                        </div>
+                                      </div>
+                                      <br>
+
+                                      <%});%>
+                                  </div>
+                                </div>
+
+                              </div>
+
+                            </form><!-- END -->
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+                    <%})%>
+              </table>
+
+              <!-- modal end -->
+              <% } else{ %>
+                <p>Order is empty</p>
+                <% } %>
+          </div>
+        </div>
+      </div>
+
+  </section>
+
+  <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+    <div class="container py-4">
+      <div class="row d-flex justify-content-center py-5">
+        <div class="col-md-6">
+          <h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
+          <span>Get e-mail updates about our latest shops and special offers</span>
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+          <form action="#" class="subscribe-form">
+            <div class="form-group d-flex">
+              <input type="text" class="form-control" placeholder="Enter email address">
+              <input type="submit" value="Subscribe" class="submit px-3">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </style>
+  <%- include('../partials/userFooter.ejs') %>
+    <!-- content for layout -->
+
+    </div>
+    <div class="clearfix"></div>
+    </div>
+    <div id="shopify-section-footer" class="shopify-section">
+
+
+
+
+
+      </body>
+
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  
+  
+
+  const button = document.getElementById('download-button');
+
+  function generatePDF() { 
+      const element = document.getElementById('invoice');
+      html2pdf().from(element).save();
+  }
+
+  button.addEventListener('click', generatePDF);
+</script>

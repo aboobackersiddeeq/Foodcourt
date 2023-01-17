@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/userHeader.ejs') %>
+	<!-- END nav -->
+
+	<div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-center justify-content-center">
+				<div class="col-md-9 ftco-animate text-center">
+					<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p>
+					<h1 class="mb-0 bread">My Cart</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="ftco-section ftco-cart">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 ftco-animate">
+					<div class=" ">
+						<%if (pro) { %>
+						<%if (pro.length>0) { %>
+							<table class="table">
+								<thead class="thead-primary">
+									<tr class="text-center">
+
+										<th>&nbsp;</th>
+										<th>Product name</th>
+										<th>Price</th>
+										<th>Quantity</th>
+										<th>Total</th>
+										<th>&nbsp;</th>
+									</tr>
+								</thead>
+								<% pro.forEach(function(pro,index){%>
+									<tbody>
+										<tr class="text-center">
+
+											<% pro.item.forEach(function(pro,index){%>
+
+												<td><img style="width: 100px" src="<%=pro.images %>" alt=""></td>
+
+												<td class="product-name">
+													<h3>
+														<%=pro.title %>
+													</h3>
+													<p>Far far away, behind the word mountains, far from the countries
+													</p>
+												</td>
+
+												<td class="price">
+													<%=pro.price %>
+												</td>
+												<%});%>
+
+
+													<td class="quantity">
+														<div class="input-group mb-3 ">
+															<div class="">
+																<button type="button" class=""
+																	onclick="changeq('<%=cart._id%>','<%=pro.item[0]._id%>','<%=userid%>',-1,'<%=pro.item[0].price %>')">
+																	<span class="p-3 h-1">-</span>
+																</button>
+																<!-- <input type="text" name="quantity" class="quantity form-control input-number" value="<%=pro.quantity%>" min="1" max="100" id="<%=pro.item[0]._id%>"> -->
+																<span class="m-4" class="ml-3"
+																	id="<%=pro.item[0]._id%>">
+																	<%=pro.quantity%>
+																</span>
+																<button type="button"
+																	onclick="changeq('<%=cart._id%>','<%=pro.item[0]._id%>','<%=userid%>',1,'<%=pro.item[0].price %>')">
+																	<span class="p-3">+</span>
+																</button>
+															</div>
+														</div>
+													</td>
+
+													<td class="totals"><span id="totels<%=pro.item[0]._id%>">
+															<%=pro.quantity *pro.item[0].price%>
+														</span></td>
+													<td class="product-remove">
+														<i type="" class="ion-ios-close"
+															onclick="changeq('<%=cart._id%>','<%=pro.item[0]._id%>','<%=userid%>',-2,'<%=pro.item[0].price %>')">
+
+														</i>
+													</td>
+										</tr><!-- END TR-->
+
+										<!-- <tr class="text-center">
+						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+						        
+						        <td class="image-prod"><div class="img" style="background-image:url(images/product-4.jpg);"></div></td>
+						        
+						        <td class="product-name">
+						        	<h3>Bell Pepper</h3>
+						        	<p>Far far away, behind the word mountains, far from the countries</p>
+						        </td>
+						        
+						        <td class="price">$15.70</td>
+						        
+						        <td class="quantity">
+						        	<div class="input-group mb-3">
+					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+					          	</div>
+					          </td>
+						        
+						        <td class="total">$15.70</td>
+						      </tr>  -->
+										<!-- END TR-->
+									</tbody>
+									<%});%>
+							</table>
+							<% } else{ %>
+
+								<% } %>
+									<% } %>
+
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-end">
+				<%if(total){%>
+					<!-- <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+						<div class="cart-total mb-3">
+							<h3>Coupon Code</h3>
+							<p>Enter your coupon code if you have one</p>
+							<form action="/coupon-check" method="post" class="info">
+								<div class="form-group">
+									<label for="">Coupon code</label>
+									<input type="text" name="code" class="form-control text-left px-3" placeholder="">
+									<input type="text" name="total" value="<%=total%>" id="totals" hidden>
+								</div>
+
+						</div>
+						<p><button class="btn btn-primary py-3 px-4" type="submit">Apply Coupon</button></p>
+					</div>
+					</form> -->
+
+					<!-- <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+						<div class="cart-total mb-3">
+							<h3>Estimate shipping and tax</h3>
+							<p>Enter your destination to get a shipping estimate</p>
+							<form action="#" class="info">
+								<div class="form-group">
+									<label for="">Country</label>
+									<input type="text" class="form-control text-left px-3" placeholder="">
+								</div>
+								<div class="form-group">
+									<label for="country">State/Province</label>
+									<input type="text" class="form-control text-left px-3" placeholder="">
+								</div>
+								<div class="form-group">
+									<label for="country">Zip/Postal Code</label>
+									<input type="text" class="form-control text-left px-3" placeholder="">
+								</div>
+							</form>
+						</div>
+						<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
+					</div> -->
+					<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+						<div class="cart-total mb-3">
+							<h3>Cart Totals</h3>
+							<p class="d-flex">
+								<span>Subtotal</span>$
+								<span id="totel">
+									<!-- <%=subtotal%> -->
+									<%=total%>
+								</span>
+							</p>
+							<p class="d-flex">
+								<span>Delivery</span>$
+								<span>0.00</span>
+							</p>
+							<p class="d-flex">
+								<span>Discount</span>$
+								<span>0.00</span>
+							</p>
+							<hr>
+							<p class="d-flex total-price">
+								<span>Total</span>$
+								<span id="subtotel">
+									<%=total%>
+								</span>
+							</p>
+						</div>
+						<p><a href="/checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+						<% } else{ %>
+							 <div class="row">
+								<div class="col-md-6">
+									<img src="https://m.media-amazon.com/images/G/01/cart/empty/kettle-desaturated._CB445243794_.svg" alt="">
+								</div>
+								<div class="col-md-6">
+									<h4 style="margin: 20px; font-weight: bold;">Your Foodcourt Cart is empty</h4>
+								</div>
+							 </div>
+							 
+							<% } %>
+
+					</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+		<div class="container py-4">
+			<div class="row d-flex justify-content-center py-5">
+				<div class="col-md-6">
+					<h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
+					<span>Get e-mail updates about our latest shops and special offers</span>
+				</div>
+				<div class="col-md-6 d-flex align-items-center">
+					<form action="#" class="subscribe-form">
+						<div class="form-group d-flex">
+							<input type="text" class="form-control" placeholder="Enter email address">
+							<input type="submit" value="Subscribe" class="submit px-3">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	</style>
+	<%- include('../partials/userFooter.ejs') %>
+		<!-- content for layout -->
+
+		</div>
+		<div class="clearfix"></div>
+		</div>
+		<div id="shopify-section-footer" class="shopify-section">
+
+
+
+			<script>
+				function changeq(cartId, proid, id, count, price) {
+					let quantity = parseInt(document.getElementById(proid).innerHTML)
+					// console.log(quantity);
+					count = parseInt(count)
+					$.ajax({
+						url: '/change-product-quantity',
+						data: {
+							use: id,
+							cart: cartId,
+							product: proid,
+							count: count,
+							quantity: quantity,
+							price: price
+						},
+						method: "post",
+						success: (response) => {
+							if (response.removeProduct) {
+								Swal.fire({
+
+									icon: 'warning',
+									title: 'Your Cart is deleted Successfully',
+									showConfirmButton: false,
+									timer: 2000
+								})
+								location.reload()
+							} else {
+								document.getElementById(proid).innerHTML = quantity + count
+								document.getElementById('totel').innerHTML = response.totel
+								// document.getElementById('totels').value = response.totel
+
+								document.getElementById('subtotel').innerHTML = response.subtotel
+								
+								document.getElementById('totels'+proid).innerHTML = price * (quantity + count)
+
+							}
+						}
+					})
+				}
+			</script>
+			<!-- <script>
+		$(document).ready(function(){
+
+		var quantitiy=0;
+		   $('.quantity-right-plus').click(function(e){
+		        
+		        // Stop acting like a button
+		        e.preventDefault();
+		        // Get the field name
+		        var quantity = parseInt($('#quantity').val());
+		        
+		        // If is not undefined
+		            
+		            $('#quantity').val(quantity + 1);
+
+		          
+		            // Increment
+		        
+		    });
+
+		     $('.quantity-left-minus').click(function(e){
+		        // Stop acting like a button
+		        e.preventDefault();
+		        // Get the field name
+		        var quantity = parseInt($('#quantity').val());
+		        
+		        // If is not undefined
+		      
+		            // Increment
+		            if(quantity>0){
+		            $('#quantity').val(quantity - 1);
+		            }
+		    });
+		    
+		});
+	</script> -->
+
+			</body>
+
+</html>

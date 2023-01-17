@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/userHeader.ejs') %>
+	<!-- END nav -->
+
+	<div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-center justify-content-center">
+				<div class="col-md-9 ftco-animate text-center">
+					<p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Checkout</span>
+					</p>
+					<h1 class="mb-0 bread">Checkout</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<section>
+
+		<!-- modal add address -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Add address<address></address>
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+
+						<form action="/add-address2" class="billing-form" method="post">
+
+							<div class="row align-items-end">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="firstname"> Full name</label>
+										<input type="text" class="form-control" placeholder="Full name" name="name" value=""required>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="lastname">Mobile number</label>
+										<input type="text" class="form-control" placeholder="Mobile number" name="mob"required >
+									</div>
+								</div>
+								<div class="w-100"></div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="lastname">House no,Flat,Building,Company,Appartment</label>
+										<input type="text" class="form-control"
+											placeholder="House number and street name" name="house" required>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="firstname">Landmark</label>
+										<input type="text" class="form-control" placeholder="Landmark" name="landmark" required>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="lastname">City</label>
+										<input type="text" class="form-control" placeholder="City" name="city" required>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="lastname">District,Village</label>
+										<input type="text" class="form-control" placeholder="District,Village" name="district" required>
+									</div>
+								</div>
+ 
+								<div class="w-100"></div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="streetaddress">State</label>
+										<input type="text" class="form-control"
+											placeholder="State" name="state">
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="postcodezip">Postcode / ZIP </label>
+										<input type="text" class="form-control" placeholder="Postcode / ZIP" name="pincode">
+									</div>
+								</div>
+
+								<div class="w-100"></div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
+						</form><!-- END -->
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	
+		<section class="ftco-section">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-xl-7 fitco-animate">
+
+						<div class="billing-form">
+							<h3 class="mb-4 billing-heading">Billing Details</h3>
+							<div class="row align-items-end">
+								<div class="w-100"></div>
+								<div class="col-md-12">
+									<div class="col-lg-10 mt-5 cart-wrap ftco-animate">
+										<div class="cart-total mb-3">
+											<h3>Coupon Code</h3>
+											<p>Enter your coupon code if you have one</p>
+											<form id="couponForm">
+												<div class="form-group">
+													<label for="">Coupon code</label>
+													<input type="text" name="userId" value="<%=users._id%>" hidden>
+													<input type="text" name="code" id="code" class="form-control text-left px-3" placeholder="">
+													<input type="text" name="total" value="<%=total%>" id="total" hidden>
+												</div>
+												<div id="success" class="alert alert-primary mt-2 ml-2" role="alert" style="display: none;">
+													Valid Coupon.
+												  </div>
+												  <div id="error"  class="alert alert-danger " role="alert" style="display: none;">
+													This is a Invalid coupon!
+												  </div>
+												  <div id="error2"  class="alert alert-danger " role="alert" style="display: none;">
+													Your Cart is not minumum Cart Amount or more !
+												  </div>
+												  <div id="error3"  class="alert alert-danger " role="alert" style="display: none;">
+													Already Entered!
+												  </div>
+												  <div id="error4"  class="alert alert-danger " role="alert" style="display: none;">
+													Already Used This Coupon!
+												  </div>
+												  <div id="error5"  class="alert alert-danger " role="alert" style="display: none;">
+													 This Coupon has Expired !
+												  </div>
+												   
+												<p><button class="btn btn-primary py-3 px-4" type="submit">Apply Coupon</button></p>
+										</div>
+										
+									</div>
+									</form>
+									<form action="" method="post" id="checkout-form"> 
+									<div class="form-group mt-4 cart-total col-lg-10" >
+										<div class="radio">
+											<% if(add){%>
+											<% add.address.forEach(function(adds,index){%>
+												<div class="w-100"></div>
+												<label class="mr-3 "><input type="radio" name="address" required
+														value="<%=adds.name%>, <%=adds.house%>, <%=adds.landmark%>, <%=adds.mob%>, <%=adds.city%>, <%=adds.district%>, <%=adds.state%>, <%=adds.pincode%> ">
+														 
+
+													<h6>
+														<%=adds.name%>
+													</h6>
+													<p>
+														<%=adds.house%> <br>
+															<%=adds.landmark%> , <br>
+																<%=adds.mob%>,<%=adds.city%>, <%=adds.district%>,
+																			<%=adds.state%>
+																				,
+																				<%=adds.pincode%>
+													</p>
+
+												</label>
+
+											<%});%>
+											<%}else{%>
+												<p>Address is empty . Please add your address </p>
+												<% }%>
+												<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+												data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add
+												address</button>
+													  
+										</div>
+										 
+
+											<input type="text" name="userid" id="" value="<%=userids%>" hidden>
+											<input type="text" name="cartcount" id="" value="<%=cartcount%>" hidden>
+
+										 
+									</div>
+								</div>
+								 
+							</div>
+							
+						</div><!-- END -->
+					</div>
+					
+					<div class="col-xl-5">
+						<div class="row mt-5 pt-3">
+							<div class="col-md-12 d-flex mb-5">
+								<div class="cart-detail cart-total p-3 p-md-4">
+									<% if(total){%>
+									<h3 class="billing-heading mb-4">Cart Total</h3>
+									
+									<p class="d-flex">
+										<span>Subtotal</span>$
+										<span> <%=total%></span>
+									</p>
+									<p class="d-flex">
+										<span>Delivery</span>$
+										<span>  0.00</span>
+									</p>
+									<p class="d-flex">
+										<span>Coupon discount</span> $
+										<span  id="dis">0.00</span>
+									</p>
+									<hr>
+									<p class="d-flex total-price">
+										<span>Total </span>$
+										<span id="ftotal"><%=total%><span>
+													
+									</p>
+									<input type="text"  class="form-control" id="btotal"  name="totel"
+														value="<%=total%>" hidden>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="cart-detail p-3 p-md-4">
+									<h3 class="billing-heading mb-4">Payment Method</h3>
+									<div class="form-group">
+										<div class="col-md-12">
+											<div class="radio" aria-required="true">
+												<label><input type="radio" name="optradio" class="mr-2" value="COD" required>
+												</label>Cash On Delivery
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-12">
+											<div class="radio" >
+												<label><input type="radio" name="optradio" class="mr-2" value="Razorpay" required >
+													Razorpay</label>
+											</div>
+										</div>
+									</div>
+									 
+									<% if(add.address.length!=0){%>
+									<p><button type="submit" class=" submit btn btn-primary py-3 px-4">Place an order</button>
+									</p>
+									<% }else{%>
+										<p style="color: red;"  id="demo"></p>
+										<p><button type="button"   class="btn btn-primary py-3 px-4" onclick="myFunction()"> order</button>
+										</p>
+
+										<% }%>
+									<%}else{%>
+										<p>Cart is empty . Please add to cart </p>
+										<% }%>
+								</div>
+							</div>
+						</div>
+					</div> <!-- .col-md-8 -->
+				</div>
+			</div>
+		</section>
+	</form>
+	<!-- .section -->
+
+
+
+	<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+		<div class="container py-4">
+			<div class="row d-flex justify-content-center py-5">
+				<div class="col-md-6">
+					<h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
+					<span>Get e-mail updates about our latest shops and special offers</span>
+				</div>
+				<div class="col-md-6 d-flex align-items-center">
+					<form action="#" class="subscribe-form">
+						<div class="form-group d-flex">
+							<input type="text" class="form-control" placeholder="Enter email address">
+							<input type="submit" value="Subscribe" class="submit px-3">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<%- include('../partials/userFooter.ejs') %>
+
+
+
+		<script>
+			$("#checkout-form").submit((e) => {
+				e.preventDefault()
+				$.ajax({
+					url: '/place-order',
+					data: $('#checkout-form').serialize(),
+					method: "post",
+					success: (response) => {
+						if (response.codstatus) {
+							location.href="/order-success"
+						} else {
+							razorpayPayment(response)
+						}
+
+
+					}
+				})
+			})
+			function razorpayPayment(order) {
+				var options = {
+					"key": "rzp_test_0HsWZK05daXmcb", // Enter the Key ID generated from the Dashboard
+					"amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+					"currency": "INR",
+					"name": "Foodcourt",
+					"description": " Transaction",
+					"image": "https://s3.amazonaws.com/designmantic-logos/logos/2023/Jan/small-9559-63c3da41dea5a.png",
+					"order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+					"handler": function (response) {
+
+						verifyPayment(response, order)
+					},
+					"prefill": {
+						"name": "Aboobacker Siddeeq p",
+						"email": "Foodcourt@example.com",
+						"contact": "9746975809"
+					},
+					"notes": {
+						"address": "Razorpay Corporate Office"
+					},
+					"theme": {
+						"color": "#3db71e"
+					}
+				};
+				var rzp1 = new Razorpay(options);
+				rzp1.open();
+				rzp1.on('payment.failed', function (response) {
+					Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Payment is failed!',
+								footer: response.error.code
+							})
+				});
+				document.getElementById('rzp-button1').onclick = function (e) {
+					rzp1.open();
+					e.preventDefault();
+				}
+
+			}
+			function verifyPayment(payment, order) {
+				$.ajax({
+					url: "/verify-payment",
+					data: {
+						payment,
+						order
+					},
+					method: 'post',
+					success: (response) => {
+						if (response.status) {
+							location.href="/order-success"
+						} else {
+							Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Payment is failed!',
+								footer: '<a href="">Why do I have this issue?</a>'
+							})
+							location.href="/view-order"
+						}
+					}
+
+
+				})
+			}
+
+		 let clicked = false
+			$('#couponForm').submit((e)=>{
+        e.preventDefault()
+     const code = document.getElementById('code').value
+     const total = document.getElementById('total').innerHTML
+     if(code == ""){
+      document.getElementById('error').style.display='inline'
+      setTimeout(()=> document.getElementById('error').style.display='none',2000)
+     }else{
+         $.ajax({
+            url:'/coupon-check',
+            method:'post',
+            dataType: "json",
+            encode: true,
+            data:
+        
+                $('#couponForm').serialize()
+            ,
+            success:((response)=>{
+                if(response.status && clicked==false){
+					console.log(response);
+                    document.getElementById('success').style.display='inline'
+					document.getElementById('dis').innerHTML=response.dis
+                    document.getElementById('ftotal').innerHTML=response.total
+					document.getElementById('btotal').value=response.total
+
+                    setTimeout(()=> document.getElementById('success').style.display='none',2000)
+                    clicked=true
+                } else if(response.error==2){
+					document.getElementById('error2').style.display='inline'
+                    setTimeout(()=> document.getElementById('error2').style.display='none',2000)
+				}
+				else if(response.error==4){
+					console.log(response.message,"user used");
+					document.getElementById('error4').style.display='inline'
+                    setTimeout(()=> document.getElementById('error4').style.display='none',2000)
+				}
+				else if(response.error==5){
+					console.log(response.message,"user used");
+					document.getElementById('error5').style.display='inline'
+                    setTimeout(()=> document.getElementById('error5').style.display='none',2000)
+				} else if(response.status==false && clicked==false){ 
+					document.getElementById('error').style.display='inline'
+                    setTimeout(()=> document.getElementById('error').style.display='none',2000)
+				}else{
+					console.log('nan else');
+                    document.getElementById('error3').style.display='inline'
+					setTimeout(()=> document.getElementById('error3').style.display='none',2000)
+                }
+            })
+  })
+     }
+    })
+		</script>
+		 
+		</body>
+
+</html>
+<script>
+	$(document).ready(function () {
+	  $("#user-login").validate();
+	});  
+  </script>
+ 
+
+<script>
+	function myFunction() {
+	  document.getElementById("demo").innerHTML = "Please add your address";
+	}
+	</script>
+ 
+ 
+ 

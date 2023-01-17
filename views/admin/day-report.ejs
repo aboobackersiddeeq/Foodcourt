@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Skydash Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../vendors/feather/feather.css">
+    <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../css/vertical-layout-light/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="../../images/favicon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<style>
+    label {
+        display: flex;
+        align-items: center;
+        /* margin-right: 118px; */
+        border-radius: 0%;
+
+    }
+
+    #cat_filter {
+
+        align-items: center;
+    }
+
+    input {
+        width: 269px;
+        height: 46px;
+    }
+
+    #cat {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+ 
+
+    #cat_paginate {
+        max-height: 40px;
+        margin: 10px 10px;
+
+        <%if(sales) {
+            %><%if(sales.length<10) {
+                %>display: none;
+                <%
+            }
+
+            %><%
+        }
+
+        %>
+    }
+
+    #cat_info {
+        color: black;
+    }
+
+    #cat_previous {
+        background-color: lightskyblue !important;
+        border-radius: 20px;
+
+        color: blue !important;
+
+    }
+
+    .fg-button {
+        color: black;
+    }
+
+    #cat_next {
+        background-color: lightskyblue !important;
+        border-radius: 20px;
+
+        color: blue !important;
+    }
+</style>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:../../partials/_navbar.html -->
+        <%- include('../partials/_navbar.ejs') %>
+            <!-- partial -->
+            <div class="container-fluid page-body-wrapper">
+                <!-- partial:../../partials/_settings-panel.html -->
+                <%- include('../partials/_settings-panel.ejs') %>
+                    <!-- partial -->
+                    <!-- partial:../../partials/_sidebar.html -->
+                    <%- include('../partials/_sidebar.ejs') %>
+                        <!-- partial -->
+                        <div class="main-panel">
+                            <div class="content-wrapper">
+                                <div class="row">
+                                    <div class="col-lg-12 grid-margin stretch-card">
+                                        <button style="background-color: rgb(21, 18, 127); color: white;"
+                                            id="download-button">Download as PDF</button>
+                                    </div>
+
+                                    <div class="col-lg-12 grid-margin stretch-card">
+
+                                        <div class="card" style="border-radius: 0%;" id="invoice">
+                                            <div class="card-body">
+                                                <div class="container" id="">
+
+
+                                                    <!-- <b utton type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit Product</button>
+                                                     -->
+
+                                                    <div class="row" style="overflow-x:auto;">
+                                                        <table id="cat" class="table  table-striped">
+                                                            <thead style="    background-color: #121211;
+                                                            color: white;">
+                                                                <tr>
+                                                                    <th class="col-md-1">NO</th>
+                                                                    <th class="col-md-3">DATE</th>
+                                                                    <th class="col-md-3">TOTAL PRICE</th>
+                                                                    <th class="col-md-2">ITEMS</th>
+                                                                    <th class="col-md-3">COUNT</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <% sales.forEach(function(e,i){%>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <%=i+1%>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%=e._id.day%> - <%=e._id.month%> -
+                                                                                    <%=e._id.year%>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%=e.totalPrice%>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%=e.items%>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%=e.count%>
+                                                                        </td>
+                                                                        <%});%>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div>
+
+                                    </div>
+
+
+                                </div>
+                                <!-- content-wrapper ends -->
+                                <!-- partial:../../partials/_footer.html -->
+                                <%- include('../partials/_footer.ejs') %>
+                                    <!-- partial -->
+                            </div>
+                            <!-- main-panel ends -->
+                        </div>
+                        <!-- page-body-wrapper ends -->
+            </div>
+            <!-- container-scroller -->
+            <!-- plugins:js -->
+            <script src="../../vendors/js/vendor.bundle.base.js"></script>
+            <!-- endinject -->
+            <!-- Plugin js for this page -->
+            <script src="../../vendors/chart.js/Chart.min.js"></script>
+            <!-- End plugin js for this page -->
+            <!-- inject:js -->
+            <script src="../../js/off-canvas.js"></script>
+            <script src="../../js/hoverable-collapse.js"></script>
+            <script src="../../js/template.js"></script>
+            <script src="../../js/settings.js"></script>
+            <script src="../../js/todolist.js"></script>
+            <!-- endinject -->
+            <!-- Custom js for this page-->
+            <script src="../../js/chart.js"></script>
+
+            <!-- End custom js for this page-->
+            <!-- download invoice -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+                integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('#cat').DataTable();
+    });
+
+
+</script>
+<script>
+    const button = document.getElementById('download-button');
+
+    function generatePDF() {
+        const element = document.getElementById('invoice');
+        html2pdf().from(element).save();
+    }
+
+    button.addEventListener('click', generatePDF);
+</script>
+
+</html>
+<!-- modal add address -->

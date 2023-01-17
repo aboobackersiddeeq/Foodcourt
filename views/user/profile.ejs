@@ -1,0 +1,386 @@
+<%- include('../partials/userHeader.ejs') %>
+<section style="background-color: #eee;">
+    <div class="container py-5">
+       
+  
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3"><%=users.name%></h5>
+              <p class="text-muted mb-1">Full Stack Developer</p>
+              <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary">Follow</button>
+                <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-4 mb-lg-0">
+            <!-- <div class="card-body p-0">
+              <ul class="list-group list-group-flush rounded-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fas fa-globe fa-lg text-warning"></i>
+                  <p class="mb-0">https://mdbootstrap.com</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                  <p class="mb-0">mdbootstrap</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                  <p class="mb-0">@mdbootstrap</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                  <p class="mb-0">mdbootstrap</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                  <p class="mb-0">mdbootstrap</p>
+                </li>
+              </ul>
+            </div> -->
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%=users.name%></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%=users.email%></p>
+                </div>
+              </div>
+              <hr>
+              
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Mobile</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%=users.phone%></p>
+                </div>
+              </div>
+              <hr>
+              <%if(add){%>
+                <%if (add.address.length!= 0) { %>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Address</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%=add.address[0].city%>, <%=add.address[0].district%>, <%=add.address[0].house%>  ,
+                    <%=add.address[0].landmark%> 
+                   
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          <div class="row">
+             
+            <div class="col-md-12">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body">
+                    <div class="form-group mt-4">
+                        <div class="radio">
+                            <% add.address.forEach(function(adds,index){%>
+                                <div class="w-100"></div>
+                                <label class="mr-3"><input  hidden name="address" value="<%=adds%>">
+
+                                    <h6>
+                                        <%=adds.name%>
+                                    </h6>
+                                    <p>
+                                        <%=adds.house%>  ,
+                                            <%=adds.landmark%> ,  
+                                                <%=adds.mob%>,<%=adds.city%>, <%=adds.district%>,
+                                                            <%=adds.state%>
+                                                                ,
+                                                                <%=adds.pincode%>  .
+                                    </p>
+                                    <a href=" " class="btn btn-primary" type="button"
+                                        class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#edit<%=adds._id%> ">Edit</a>
+                                    <a href="/delete-address/<%=adds._id%>" class="btn btn-danger"
+                                        id="<%=adds._id%>"
+                                        >Delete </a>
+
+                                </label>
+
+
+                                <!-- modal edit address -->
+                                <section>
+
+                                    <div class="modal fade" id="edit<%=adds._id%>" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">edit
+                                                        address
+
+                                                    </h5>
+                                                    <button type="button" class="btn-close"
+                                                        data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <form action="/edit-address/<%=adds._id%>"
+                                                        class="billing-form" method="post">
+
+                                                        <div class="row align-items-end">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="firstname"> Full
+                                                                        name</label>
+                                                                    <input type="text"
+                                                                        class="form-control"
+                                                                        placeholder="" name="name"
+                                                                        value="<%=adds.name%>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="lastname">Mobile
+                                                                        number</label>
+                                                                    <input type="text"
+                                                                        class="form-control"
+                                                                        placeholder="" name="mob"
+                                                                        value="<%=adds.mob%>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="w-100"></div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="lastname">House
+                                                                        no,Flat,Building,Company,Appartment</label>
+                                                                    <input type="text"
+                                                                        class="form-control"
+                                                                        placeholder="House number and street name"
+                                                                        name="house"
+                                                                        value="<%=adds.house%>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label
+                                                                        for="firstname">Landmark</label>
+                                                                    <input type="text"
+                                                                        class="form-control"
+                                                                        placeholder="" name="landmark"
+                                                                        value="<%=adds.landmark%>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="lastname">City</label>
+                                                                    <input type="text"
+                                                                        class="form-control"
+                                                                        placeholder="" name="city"
+                                                                        value="<%=adds.city%>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label
+                                                                        for="lastname">District,Village</label>
+                                                                    <input type="text"
+                                                                        class="form-control"
+                                                                        placeholder="" name="district"
+                                                                        value="<%=adds.district%>">
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="w-100"></div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label
+                                                                        for="streetaddress">State</label>
+                                                                    <input type="text"
+                                                                        class="form-control"
+                                                                        placeholder="state" name="state"
+                                                                        value="<%=adds.state%>">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="postcodezip">Postcode /
+                                                                        ZIP
+                                                                        *</label>
+                                                                    <input type="text"
+                                                                        class="form-control"
+                                                                        placeholder="" name="pincode"
+                                                                        value="<%=adds.pincode%>">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="w-100"></div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button"
+                                                                class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit"
+                                                                class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form><!-- END -->
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <%});%>
+                                    <% } else{ %>
+                                        <p>Address is not added</p>
+                                        <% } %>
+                                        <% } else{ %>
+                                            <p>Address is not added</p>
+                                            <% } %>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add
+                                address</button>
+                                </section>
+                        </div>
+                        <div>
+                  
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <%- include('../partials/userFooter.ejs') %>
+
+  <!-- modal add address -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add address<address></address>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form action="/add-address" class="billing-form" method="post" id="address">
+
+                    <div class="row align-items-end">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="firstname"> Full name</label>
+                                <input type="text" class="form-control" placeholder="Full name" name="name" value="" required minlength="2">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lastname">Mobile number</label>
+                                <input type="number" class="form-control" placeholder="Mobile number" name="mob"required minlength="10" >
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="lastname">House no,Flat,Building,Company,Appartment</label>
+                                <input type="text" class="form-control"
+                                    placeholder="House number and street name" name="house" required  >
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="firstname">Landmark</label>
+                                <input type="text" class="form-control" placeholder="Landmark" name="landmark"required >
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lastname">City</label>
+                                <input type="text" class="form-control" placeholder="City" name="city"required>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="lastname">District,Village</label>
+                                <input type="text" class="form-control" placeholder="District,Village" name="district" required>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="country">State / Country</label>
+                            <div class="select-wrap">
+                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                <select name="state" id="" class="form-control">
+                                    <option value="">France</option>
+                                    <option value="">Italy</option>
+                                    <option value="">Philippines</option>
+                                    <option value="">South Korea</option>
+                                    <option value="">Hongkong</option>
+                                    <option value="">Japan</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div> -->
+                        <div class="w-100"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="streetaddress">State</label>
+                                <input type="text" class="form-control"
+                                    placeholder="State" name="state" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="postcodezip">Postcode / ZIP *</label>
+                                <input type="number" class="form-control" placeholder="Postcode / ZIP" name="pincode" required>
+                            </div>
+                        </div>
+
+                        <div class="w-100"></div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form><!-- END -->
+            </div>
+
+        </div>
+    </div>
+</div>
+</section>
+<script>
+    $(document).ready(function () {
+        $("#address").validate();
+    });  
+</script>
+<!-- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> -->
+ 

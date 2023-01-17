@@ -1,0 +1,149 @@
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Skydash Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../vendors/feather/feather.css">
+  <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../../css/vertical-layout-light/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="../../images/favicon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+  .dataTables_wrapper label {
+    /* font-size: .8125rem; */
+    margin-right: 455px;
+    margin-top: -13px;
+    margin-bottom: 31px;
+  }
+</style>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <%- include('../partials/_navbar.ejs') %>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_settings-panel.html -->
+        <%- include('../partials/_settings-panel.ejs') %>
+          <!-- partial -->
+          <!-- partial:../../partials/_sidebar.html -->
+          <%- include('../partials/_sidebar.ejs') %>
+            <!-- partial -->
+            <div class="main-panel">
+              <div class="content-wrapper">
+                <div class="row">
+                  <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="container" id="">
+                          <div class="container-fluid  pt-4 px-4">
+                            <div class="row g-4">
+                              <div class="  col-xl-2">
+
+                              </div>
+
+                              <div class="col-sm-12    ">
+
+<div class="container-fluid  pt-4 px-4" >
+    <div class="row g-4">
+        <div class="  col-xl-2">
+
+        </div>
+      
+        <div class="col-sm-12   col-xl-6">
+          
+            <form action="/admin/add-category" method="post" enctype="multipart/form-data">
+                <!-- Name input -->
+                <div class="form-outline mb-4">
+                  <%if(cat.length>0){%>
+                    <div class="alert alert-warning" role="alert">
+                        <strong class="mx-2"> <%=cat%></strong> 
+                        <!-- <br> Are you a returning customer?
+                         <a href="/login" class=" ">Sign-In   </a> <br><a href="/forgot " class=" ">Forgot your password?</a>
+                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button> -->
+                      </div>
+        
+                <%}%>
+                  <input type="text" placeholder="Category name" name="categoryName" id="form4Example1" class="form-control" required />
+                  <label class="form-label" for="form4Example1">Name</label>
+                </div>
+              
+                <!-- Email input -->
+               
+              
+                <!-- Message input -->
+                <div class="form-outline mb-4">
+                  <textarea name="description" placeholder="Description" class="form-control" id="form4Example3" rows="4" required></textarea>
+                  <label class="form-label" for="form4Example3">Description</label>
+                </div>
+              
+                <div class="form-outline mb-4">
+                  <input type="file" placeholder="Image" name="img" id="image" class="form-control" />
+                  <label class="form-label" for="form4Example1">Image</label>
+                </div>
+              
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4">Add Category</button>
+              </form>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+
+</div>
+
+
+</div>
+<!-- content-wrapper ends -->
+<!-- partial:../../partials/_footer.html -->
+<%- include('../partials/_footer.ejs') %>
+<!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script src="../../vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="../../vendors/chart.js/Chart.min.js"></script>
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="../../js/off-canvas.js"></script>
+<script src="../../js/hoverable-collapse.js"></script>
+<script src="../../js/template.js"></script>
+<script src="../../js/settings.js"></script>
+<script src="../../js/todolist.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="../../js/chart.js"></script>
+<!-- End custom js for this page-->
+</body>
+
+<!-- <script>
+$(document).ready(function () {
+$('#table-costemor').DataTable();
+});

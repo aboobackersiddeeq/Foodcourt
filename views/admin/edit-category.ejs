@@ -1,0 +1,188 @@
+<!-- <section>
+    <div class="container">
+       <div class="row">
+           <div class="col-md-6">
+               <h1 class="text-center">Edit Category</h1>
+               
+               <form action="/admin/edit-category/<%=category._id %>" method="post" enctype="multipart/form-data">
+                   <label for="">Name</label>
+                   <input type="text" name="name"class="form-control" value="<%=category.name %>">
+
+                   <label for="">Description</label>
+                   <input type="text" name="description"class="form-control" value="<%=category.description %>">
+
+                   <label for="">Image</label>
+                   <img src="<%=category.image%>" alt="">
+                   <input type="file" name="img"class="form-control" value="<%=category.image%>">
+
+                   <button type="submit" class="btn btn-success mt-4">Edit Catogory</button>
+                   <a href="/admin/viewCatogory " class="btn btn-success mt-4">Back</a>
+               </form>
+           </div>
+       </div>
+    </div>
+</section> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Skydash Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../vendors/feather/feather.css">
+  <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../../css/vertical-layout-light/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="../../images/favicon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<!-- <style>
+    .dataTables_wrapper label {
+    /* font-size: .8125rem; */
+    margin-right: 455px;
+    margin-top: -13px;
+    margin-bottom: 31px;
+}
+</style> -->
+ 
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <%- include('../partials/_navbar.ejs') %>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_settings-panel.html -->
+        <%- include('../partials/_settings-panel.ejs') %>
+          <!-- partial -->
+          <!-- partial:../../partials/_sidebar.html -->
+          <%- include('../partials/_sidebar.ejs') %>
+            <!-- partial -->
+            <div class="main-panel">
+              <div class="content-wrapper">
+                <div class="row">
+                  <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card" style="border-radius: 0%;">
+                      <div class="card-body" style="border-radius: 0%;">
+                        <div class="container" id="">
+
+                          <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit Product</button>
+                                                     -->
+
+                          <div class="row" style="overflow-x:auto;">
+                            <div class="container-fluid  pt-4 px-4">
+                              <div class="row g-4">
+                                <div class="  col-xl-2">
+
+                                </div>
+
+                                <div class="col-sm-12   col-xl-6">
+
+                                  <form action="/admin/edit-category/<%=category._id %>" method="post" enctype="multipart/form-data">
+                                     <div class="row">
+                                    <div class="form-outline mb-4 col-md-12">
+                                      
+                                      <label class="form-label" for="form4Example1">Name</label>
+                                      <input type="text" name="name"class="form-control" value="<%=category.name %>">
+                            
+                                    </div>
+                                  </div>
+                                     
+                                    
+                            
+                                    <div class="form-outline mb-4">
+                                      <label class="form-label" for="form4Example3">Description</label>
+                                      <input type="text" name="description"class="form-control" value="<%=category.description %>">
+                                    </div>
+                            
+                                    <div class="form-outline mb-4">
+                                      <label class="form-label" for="form4Example1">Image</label>
+                                       
+                                      <img src="<%=category.image%>" alt="" id="imgview" width="100px">
+                                      <input type="file" name="img" id="image" class="form-control" onchange="viewimage(event)"
+                                        value="<%=category.image%>">
+                                    </div>
+    
+                                  
+                                    <button type="submit" class="btn btn-primary btn-block mb-4 mt-4">Edit Category</button>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="my-4">
+                            <!-- <a href="/admin/add-category "
+                                                         class="btn btn-primary ml-auto">Add Category</a> -->
+
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <div>
+
+                  </div>
+
+
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:../../partials/_footer.html -->
+                <%- include('../partials/_footer.ejs') %>
+                  <!-- partial -->
+              </div>
+              <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+      </div>
+      <!-- container-scroller -->
+      <!-- plugins:js -->
+      <script src="../../vendors/js/vendor.bundle.base.js"></script>
+      <!-- endinject -->
+      <!-- Plugin js for this page -->
+      <script src="../../vendors/chart.js/Chart.min.js"></script>
+      <!-- End plugin js for this page -->
+      <!-- inject:js -->
+      <script src="../../js/off-canvas.js"></script>
+      <script src="../../js/hoverable-collapse.js"></script>
+      <script src="../../js/template.js"></script>
+      <script src="../../js/settings.js"></script>
+      <script src="../../js/todolist.js"></script>
+      <!-- endinject -->
+      <!-- Custom js for this page-->
+      <script src="../../js/chart.js"></script>
+      <!-- End custom js for this page-->
+</body>
+
+<script>
+    function viewimage(e) {
+      document.getElementById('imgview').src = URL.createObjectURL(e.target.files[0])
+  
+    }
+    
+  
+  </script>
+  <script>
+    $(".custom-file-input").on("change", function () {
+      var files = Array.from(this.files)
+      var fileName = files.map(f => { return f.name }).join(", ")
+      $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+  </script>
+
+</html>

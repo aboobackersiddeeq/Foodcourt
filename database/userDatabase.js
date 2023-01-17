@@ -8,7 +8,9 @@ const Order = require('../models/order');
 
 const Wishlist = require('../models/wishlist');
 
-const instance = new Razorpay({ key_id: 'rzp_test_0HsWZK05daXmcb', key_secret: 'E6PsTbsdgTBCVRXrohunMVMR' });
+const { KEYID } = process.env;
+const keySecret = process.env.KEYSE;
+const instance = new Razorpay({ key_id: KEYID, key_secret: keySecret });
 
 module.exports = {
   doLogin: async (userData, callback) => {
@@ -158,7 +160,7 @@ module.exports = {
     });
   }),
   verifyPayment: (details) => new Promise((resolve, reject) => {
-    let hmac = crypto.createHmac('sha256', 'E6PsTbsdgTBCVRXrohunMVMR');
+    let hmac = crypto.createHmac('sha256', keySecret);
     hmac.update(`${details.payment.razorpay_order_id}|${details.payment.razorpay_payment_id}`);
     hmac = hmac.digest('hex');
     if (hmac === details.payment.razorpay_signature) {

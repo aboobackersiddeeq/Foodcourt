@@ -19,12 +19,15 @@ const Coupon = require('../models/coupon');
 const Category = require('../models/category');
 const Banner = require('../models/banner');
 
+const host = process.env.HOST;
+const nodemailerPass = process.env.MAILERPASS;
+const userEmail = process.env.USEREMAIL;
 const mailer = nodemailer.createTransport({
-  host: 'smtp-relay.sendinblue.com',
+  host,
   port: 587,
   auth: {
-    user: 'rashidrashi9876543210@gmail.com',
-    pass: 'G9AUrtQBshbkT6f5',
+    user: userEmail,
+    pass: nodemailerPass,
   },
 
 });

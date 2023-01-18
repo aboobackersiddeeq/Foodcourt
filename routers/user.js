@@ -3,7 +3,7 @@ const express = require('express');
 const { check, body } = require('express-validator');
 
 const router = express.Router();
-const userController = require('../controllers/userController');
+const userController = require('../controllers/user-controller');
 const { verifyUser } = require('../middleware/verify');
 
 router.get('/', userController.userHome);

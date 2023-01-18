@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-const adminDatabase = require('../database/adminDatabase');
+const adminDatabase = require('../database/admin-database');
 const user = require('../models/user');
 const Category = require('../models/category');
 const Product = require('../models/product');

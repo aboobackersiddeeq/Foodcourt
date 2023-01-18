@@ -11,7 +11,7 @@ const address = require('../models/address');
 
 const salt = bcrypt.genSaltSync(10);
 
-const userDatabase = require('../database/userDatabase');
+const userDatabase = require('../database/user-database');
 const { sendotp, verifyotp } = require('../utilities/otp');
 const pro = require('../models/product');
 const order = require('../models/order');

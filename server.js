@@ -79,7 +79,7 @@ app.use((req, res, next) => {
 });
 
 app.use(globalErrorHandler);
-const PORT = process.env.PORT || 7015;
+const PORT = process.env.PORT || 3000;
 
 // eslint-disable-next-line no-console
 app.listen(PORT, console.log(`Server don start for port: ${PORT}`));

@@ -2,7 +2,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title> Foodcourt</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../../vendors/feather/feather.css">
   <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
@@ -99,7 +99,7 @@
                                                           <thead style="    background-color: #121211;
                                                           color: white;" >
                                                               <tr>
-                                                                  <!-- <th class="col-md-1">No</th> -->
+                                                                  <th class="col ">No</th>
                                                                   <th scope="col-2">DATE</th>
                                                                   <th scope="col -2">USER</th>
                                                                   <th scope="col-1">PAYMENT METHOD</th>
@@ -113,14 +113,19 @@
                                                             <%if(orders){%>
                                                             <% orders.forEach(function(orders,i){%>
                                                                   <tr  >
+                                                                    <td  class=" ">
+                                                                      <%=i%>
+                                                                      
+                                                                  </td>
                                                                     <td class="col-md-2" >
+                                                                     
                                                                       <%=orders.date.toString().substring(0,15) %>
                                                                     </td>
                                                                    
                                                                     <td  class="col-md-2">
-                                                                      <%if(orders){%>
+                                                                       
                                                                         <%=users[i].userid.name%>
-                                                                        <%}%>
+                                                                        
                                                                     </td>
                                                                    
                                                                     <td class="col-md-2" >
@@ -225,14 +230,13 @@
                                                                                 <div class="">
                                                                                   <div class="form-group">
                                                                                     <div class="row">
+                                                                                      
                                                                                       <h6>Name : <%=users[i].userid.name%></h6>
                                                                                       <p>Email : <%=users[i].userid.email%> </p>
                                                                                       <p>Phone : <%=users[i].userid.phone%> </p>
                                                                                       <p>Id    : <%=users[i].userid._id%> </p>
                                                                                       
-                                                                                    </div>
-                                                                    
-    // unique:true                 
+                                                                                    </div>             
                                                                                   </div>
                                                                                 </div>
                                                 
@@ -318,18 +322,16 @@ Swal.fire({
       url:`/admin/change-status?s=${e.value}&id=${id}`,
       method:'get',
       success:((response)=>{
-        console.log(response);
          
         if(response.status){
-          
+          Swal.fire('Saved!', '', 'success')
            
               
               
         }else{
-          console.log("else");
-          setTimeout(()=>location.reload(),0)
+          setTimeout(()=>location.reload(),10)
           document.getElementById(id).innerHTML=response.value
-          
+          Swal.fire('Saved!', '', 'success')
         }
       })
     })

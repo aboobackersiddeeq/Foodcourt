@@ -323,13 +323,12 @@ module.exports = {
       if (product) {
         req.flash('product', 'This Product is already entered');
         res.redirect('/admin/add-product');
+      } else if (!image) {
+        req.flash('product', 'image not found');
+        res.redirect('/admin/add-product');
+        // eslint-disable-next-line no-undef
+        error = '';
       } else {
-        if (!image) {
-          req.flash('product', 'image not found');
-          res.redirect('/add-product');
-          // eslint-disable-next-line no-undef
-          error = '';
-        }
         let imageUrl = image[0].path;
         imageUrl = imageUrl.substring(6);
         //   multiple image
@@ -480,20 +479,20 @@ module.exports = {
   },
   viewOrders: async (req, res) => {
     try {
-      let users;
-      await order.find().populate('userid').where()
-        .exec((errs, userz) => {
-          userz.reverse();
-          users = userz;
+      order.find().populate('userid').where()
+        .exec((errs, users) => {
+          if (users)users.reverse();
+
+          order.find().populate('products.item').where()
+            .exec((err, orders) => {
+              if (orders)orders.reverse();
+
+              res.render('admin/view-orders', {
+                orders, users,
+              });
+            });
         });
-      await order.find().populate('products.item').where()
-        .exec(async (err, orders) => {
-          orders.reverse();
-          res.render('admin/view-orders', {
-            orders, users,
-          });
-        });
-    } catch {
+    } catch (e) {
       res.redirect('/error');
     }
   },
@@ -507,13 +506,14 @@ module.exports = {
         ).then(() => {
           res.json({ status: false, value });
         });
+      } else {
+        order.updateOne(
+          { _id: req.query.id },
+          { $set: { status: req.query.s } },
+        ).then(() => {
+          res.json({ status: true });
+        });
       }
-      order.updateOne(
-        { _id: req.query.id },
-        { $set: { status: req.query.s } },
-      ).then(() => {
-        res.json({ status: true });
-      });
     } catch {
       res.redirect('/error');
     }

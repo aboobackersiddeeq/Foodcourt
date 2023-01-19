@@ -1,101 +1,4 @@
-<!-- <div class="container-fluid  pt-4 px-4">
-  <div class="row g-4">
-    <div class="  col-xl-2">
-
-    </div>
-
-    <div class="col-sm-12   col-xl-6">
-       
-      <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">Edit Coupon</h4>
-      <form action="/admin/edit-coupon/<%=coupons._id%>" method="post">
-        <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-          <div class="row">
-            <div class="form-outline mb-4 col-md-6">
-              <span class="text-gray-700 dark:text-gray-400">Coupon Code</span></label>
-              <input name="code" value="<%=coupons.code%>" type="text" required class="form-control" />
-
-            </div>
-            <div class="form-outline mb-4 col-md-6 col-md-6">
-              <span class="text-gray-700 dark:text-gray-400"> Discount type </span></label>
-              <select class="form-control" name="isPercent" required>
-                <option value="true" selected disabled hidden>Percentage(%)</option>
-                <option value="true">Percentage(%)</option>
-                <option value="false">Amount(₹)</option>
-              </select>
-
-            </div>
-          </div>
-          <div class="form-outline mb-4 ">
-            <span class="text-gray-700 dark:text-gray-400">Amount <span style="font-size:x-small;"> (if is percent, then number must be ≤ 100, else it’s
-              amount of discount)</span></span></label>
-          <input name="amount" value="<%=coupons.amount%>" type="number"  class="form-control" required />
-          <input name="createdAt" value="<%=coupons.createdAt.getTime()%>" type="number" hidden />
-
-
-          </div>
-          <div class="row">
-            <div class="form-outline mb-4 col-md-6">
-              <span class="text-gray-700 dark:text-gray-400">Usage limit</span></label>
-              <input name="usageLimit" value="<%=coupons.usageLimit%>" type="number" required class="form-control" />
-            </div>
-            <div class="form-outline mb-4 col-md-6 col-md-6">
-              <span class="text-gray-700 dark:text-gray-400">Min Cart Amount</span></label>
-              <input name="minCartAmount" value="<%=coupons.minCartAmount%>" type="number" required  class="form-control"/>
-
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-outline mb-4 col-md-6">
-               
-                <span class="text-gray-700 dark:text-gray-400">Expire After(days)</span> 
-              <input name="expireAfter" value="<%=Difference%>" type="number" required class="form-control"/>
-            </div>
-            <div class="form-outline mb-4 col-md-6 col-md-6">
-              <span class="text-gray-700 dark:text-gray-400">Max Cart Discount</span> 
-          <input name="maxDiscountAmount" value="<%=coupons.maxDiscountAmount%>" type="number" required class="form-control" /> 
-
-            </div>
-          </div>
-  
-
-          <button type="submit" class="btn btn-primary">
-            edit Coupon
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div> -->
-
-
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="../../vendors/feather/feather.css">
-  <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- Plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="../../css/vertical-layout-light/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="../../images/favicon.png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<!-- <style>
-    .dataTables_wrapper label {
-    /* font-size: .8125rem; */
-    margin-right: 455px;
-    margin-top: -13px;
-    margin-bottom: 31px;
-}
-</style> -->
+<%- include('../partials/admin-link.ejs') %>
  
 
 <body>
@@ -223,23 +126,7 @@
             </div>
             <!-- page-body-wrapper ends -->
       </div>
-      <!-- container-scroller -->
-      <!-- plugins:js -->
-      <script src="../../vendors/js/vendor.bundle.base.js"></script>
-      <!-- endinject -->
-      <!-- Plugin js for this page -->
-      <script src="../../vendors/chart.js/Chart.min.js"></script>
-      <!-- End plugin js for this page -->
-      <!-- inject:js -->
-      <script src="../../js/off-canvas.js"></script>
-      <script src="../../js/hoverable-collapse.js"></script>
-      <script src="../../js/template.js"></script>
-      <script src="../../js/settings.js"></script>
-      <script src="../../js/todolist.js"></script>
-      <!-- endinject -->
-      <!-- Custom js for this page-->
-      <script src="../../js/chart.js"></script>
-      <!-- End custom js for this page-->
+      <%- include('../partials/admin-script.ejs') %>
 </body>
 
  

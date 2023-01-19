@@ -3,7 +3,7 @@
 .dropright,
 .dropdown,
 .dropleft {
-  position: relative;
+  position: static;
 }
 
 .dropdown-toggle {
@@ -13,7 +13,8 @@
 
 // The dropdown menu
 .dropdown-menu {
-  position: absolute;
+  z-index:0;
+  position: static;
   top: 100%;
   left: 0;
   z-index: $zindex-dropdown;
@@ -171,6 +172,7 @@
 
 .dropdown-menu.show {
   display: block;
+  
 }
 
 // Dropdown section headers
@@ -189,3 +191,14 @@
   padding: $dropdown-item-padding-y $dropdown-item-padding-x;
   color: $dropdown-link-color;
 }
+.dropdown-backdrop{
+  position: static;
+}
+@media (max-width: 767px) { 
+  .dropdown.custom:hover .dropdown-menu {
+    visibility: visible;
+    display:block;
+    border-radius:0;
+  
+  }
+  }

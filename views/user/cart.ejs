@@ -35,9 +35,10 @@
 								</thead>
 								<% pro.forEach(function(pro,index){%>
 									<tbody>
-										<tr class="text-center">
+										<% pro.item.forEach(function(pro,index){%>
+										<tr id="<%=pro._id%>tr" class="text-center">
 
-											<% pro.item.forEach(function(pro,index){%>
+											
 
 												<td><img style="width: 100px" src="<%=pro.images %>" alt=""></td>
 
@@ -256,7 +257,7 @@
 									showConfirmButton: false,
 									timer: 2000
 								})
-								location.reload()
+								document.getElementById(proid+"tr").remove()
 							} else {
 								document.getElementById(proid).innerHTML = quantity + count
 								document.getElementById('totel').innerHTML = response.totel

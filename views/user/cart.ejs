@@ -18,7 +18,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 ftco-animate">
-					<div class=" ">
+					<div style="overflow-x:auto " >
 						<%if (pro) { %>
 						<%if (pro.length>0) { %>
 							<table class="table">
@@ -249,6 +249,7 @@
 						},
 						method: "post",
 						success: (response) => {
+							console.log(response);
 							if (response.removeProduct) {
 								Swal.fire({
 
@@ -257,7 +258,13 @@
 									showConfirmButton: false,
 									timer: 2000
 								})
+                                document.getElementById('totel').innerHTML = response.totel
+								document.getElementById('subtotel').innerHTML = response.subtotel
 								document.getElementById(proid+"tr").remove()
+								if (response.totel== 0) {
+									location.reload()
+								}
+								
 							} else {
 								document.getElementById(proid).innerHTML = quantity + count
 								document.getElementById('totel').innerHTML = response.totel

@@ -18,6 +18,7 @@ const order = require('../models/order');
 const Coupon = require('../models/coupon');
 const Category = require('../models/category');
 const Banner = require('../models/banner');
+const Wishlist = require('../models/wishlist');
 
 const host = process.env.HOST;
 const nodemailerPass = process.env.MAILERPASS;
@@ -442,12 +443,18 @@ module.exports = {
       next(new Error(e));
     }
   },
-  deleteWishlist: (req, res, next) => {
+  deleteWishlist: async (req, res, next) => {
     try {
-      const proId = req.params.id;
+      const proId = req.query.id;
       const userId = req.session.users._id;
       userDatabase.deleteWislist(userId, proId);
-      res.redirect('/wishlist');
+      let wishlistCount = null;
+      wishlistCount = await userDatabase.getwishlistCount(userId);
+      if (wishlistCount === 1) {
+        res.json({ status: false });
+      } else {
+        res.json({ status: true });
+      }
     } catch (e) {
       next(new Error(e));
     }

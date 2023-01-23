@@ -39,7 +39,7 @@ router.get('/view-order', verifyUser, userController.viewOrder);
 router.get('/order-success', verifyUser, userController.orderSuccess);
 router.get('/wishlist', verifyUser, userController.wishlist);
 router.get('/add-wishlist/:id', verifyUser, userController.addWishlist);
-router.get('/delet-wishlist/:id', verifyUser, userController.deleteWishlist);
+router.get('/delet-wishlist', verifyUser, userController.deleteWishlist);
 router.get('/single-product', userController.singleProduct);
 router.get('/forgot', userController.forgotPassword);
 router.post('/forgot', userController.postForgot);

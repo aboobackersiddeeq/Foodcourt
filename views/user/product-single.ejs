@@ -324,7 +324,7 @@
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
 
-  <script>
+  <!-- <script>
 		$(document).ready(function(){
 
 		var quantitiy=0;
@@ -359,7 +359,7 @@
 		    });
 		    
 		});
-	</script>
+	</script> -->
     
   </body>
 </html>
@@ -378,6 +378,7 @@
 						success: (response) => {
 							if(response.count){
 								document.getElementById('count').innerHTML = response.count
+								location.href="/viewcart"
 							 }else{
 							 
 							location.href="/login"

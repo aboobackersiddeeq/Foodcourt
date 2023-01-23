@@ -17,12 +17,13 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 ftco-animate">
-					<div class="">
-						<%if(prod){%>
-							<%if(prod.length>0){%>
+					<%if(prod){%>
+						<%if(prod.length>0){%>
+					<div class="" style="overflow-x:auto ">
+						
 								<table class="table">
 									<thead class="thead-primary">
-										<tr class="text-center">
+										<tr class="text-center" >
 											<th>&nbsp;</th>
 											<th>Product List</th>
 											<th>&nbsp;</th>
@@ -38,10 +39,10 @@
 
 									<% prod.forEach(function(pro,index){%>
 										<tbody>
-											<tr class="text-center">
+											<tr class="text-center" id="<%= pro._id%>">
 
 
-												<td class="product-remove"><a href="/delet-wishlist/<%= pro._id%>"><span
+												<td class="product-remove"><a onclick="deleted('<%= pro._id%>')" ><span
 															class="ion-ios-close"></span></a></td>
 												<td><img style="width: 100px" src="<%=pro.images %>" alt=""></td>
 
@@ -292,7 +293,55 @@
 
 				}
 			})
-		}
+		} 
+    function deleted(Id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/delet-wishlist',
+                    data: {
+                        id: Id,
+
+                    },
+                    method: "get",
+                    success: (response) => {
+                        if (response.status) {
+                            document.getElementById(Id).remove()
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+
+                            console.log(response);
+                             
+                            
+                        } else {
+                            document.getElementById(Id).remove()
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                             
+                            location.reload()
+                        } 
+                    }
+                })
+
+            }
+        })
+
+    }
+ 
 	</script>
 
 	</body>

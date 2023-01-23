@@ -65,6 +65,7 @@ module.exports = {
         .populate('proid.item')
         .where()
         .exec((err, pro) => {
+          pro.reverse();
           // eslint-disable-next-line no-underscore-dangle
           callback(err, pro[0].proid, pro[0]._id);
         });
@@ -204,6 +205,7 @@ module.exports = {
         .populate('proid')
         .where()
         .exec((err, pro) => {
+          pro.reverse();
           callback(err, pro[0].proid);
         });
     } else {
@@ -218,5 +220,14 @@ module.exports = {
 
     });
   },
+  // eslint-disable-next-line no-async-promise-executor
+  getwishlistCount: (userid) => new Promise(async (resolve) => {
+    let count = 0;
+    const wishlist = await Wishlist.findOne({ userid });
+    if (wishlist) {
+      count = wishlist.proid.length;
+    }
+    resolve(count);
+  }),
 
 };

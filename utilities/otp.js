@@ -5,14 +5,12 @@ const serviceid = process.env.SSID;
 const client = require('twilio')(accountSid, authToken);
 
 function sendotp(phone) {
-  // eslint-disable-next-line no-console
-  console.log(phone);
   client.verify.v2
     .services(serviceid)
     .verifications
     .create({ to: `+91${phone}`, channel: 'sms' })
     // eslint-disable-next-line no-console
-    .then((verification) => console.log(verification.status, ' status 1'));
+    .then((verification) => console.log(verification.status));
 }
 
 function verifyotp(mobail, otp) {

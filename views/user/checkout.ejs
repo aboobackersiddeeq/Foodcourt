@@ -245,9 +245,11 @@
 										</div>
 									</div>
 									 
-									<% if(add.address.length!=0){%>
+									<% if(add){%>
+										<% if(add.address.length!=0){%>
 									<p><button type="submit" class=" submit btn btn-primary py-3 px-4">Place an order</button>
 									</p>
+									<% }%>
 									<% }else{%>
 										<p style="color: red;"  id="demo"></p>
 										<p><button type="button"   class="btn btn-primary py-3 px-4" onclick="myFunction()"> order</button>

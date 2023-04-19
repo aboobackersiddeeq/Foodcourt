@@ -10,8 +10,6 @@ const productSchema = new mongoose.Schema(
       unique: true,
     },
     category: {
-    // type:String,
-    // required:true,
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
       required: [true, 'please specify product category'],

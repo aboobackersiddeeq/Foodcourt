@@ -21,14 +21,6 @@ mongoose.connect(process.env.DATABASE_URL, {
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('connected to mongoos'));
-// async function addUser() {
-//         const user1=new User({name:"",age:"21",address:"hgi"})
-//         user1.name = "siddi"
-//         await user1.save()
-//         console.log(user1)
-
-// }
-
 const userRoute = require('./routers/user');
 const adminRoute = require('./routers/admin');
 

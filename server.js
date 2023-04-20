@@ -14,13 +14,13 @@ const multer = require('multer');
 const flash = require('connect-flash');
 const AppError = require('./utilities/app.error');
 const globalErrorHandler = require('./utilities/handler');
-
+mongoose.set('strictQuery', true);
 mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlparser: true,
 });
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
-db.once('open', () => console.log('connected to mongoos'));
+db.once('open', () => console.log('connected to mongoose'));
 const userRoute = require('./routers/user');
 const adminRoute = require('./routers/admin');
 
@@ -53,7 +53,7 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(multer({ storage: fileStorage, fileFilter }).fields([{ name: 'img' }, { name: 'images', maxCount: 5 }]));
 // app.use(multer({storage:fileStorage,fileFilter:fileFilter}).array('images',4))
-
+ 
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({

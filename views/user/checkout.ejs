@@ -295,6 +295,7 @@
 
 
 		<script>
+			var KEYID = '<%= process.env.KEYID %>';
 			$("#checkout-form").submit((e) => {
 				e.preventDefault()
 				$.ajax({
@@ -314,7 +315,7 @@
 			})
 			function razorpayPayment(order) {
 				var options = {
-					"key": "rzp_test_0HsWZK05daXmcb", // Enter the Key ID generated from the Dashboard
+					"key":  KEYID, // Enter the Key ID generated from the Dashboard
 					"amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
 					"currency": "INR",
 					"name": "Foodcourt",

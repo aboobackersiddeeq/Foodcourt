@@ -19,7 +19,7 @@ const Coupon = require('../models/coupon');
 const Category = require('../models/category');
 const Banner = require('../models/banner');
 const Wishlist = require('../models/wishlist');
-
+const base_url = process.env.BASE_URL
 const host = process.env.HOST;
 const nodemailerPass = process.env.MAILERPASS;
 const userEmail = process.env.USEREMAIL;
@@ -523,7 +523,7 @@ module.exports = {
 
               html: `
             <p>You Requested  a Password reset </p>
-             <p>Click this <a href="http://localhost:7015/new-password?token=${token}">link</a> to set a password</p>
+             <p>Click this <a href="${base_url}/new-password?token=${token}">link</a> to set a password</p>
           `,
             };
             mailer.sendMail(emails, () => {

@@ -14,8 +14,6 @@ function sendotp(phone) {
 }
 
 function verifyotp(mobail, otp) {
-  // eslint-disable-next-line no-console
-  console.log(mobail + otp);
   return new Promise((resolve) => {
     client.verify.v2
       .services(serviceid)

@@ -1,11 +1,11 @@
 /* eslint-disable linebreak-style */
-const adminDatabase = require('../database/admin-database');
-const user = require('../models/user');
-const Category = require('../models/category');
-const Product = require('../models/product');
-const Coupon = require('../models/coupon');
-const order = require('../models/order');
-const Banner = require('../models/banner');
+const adminDatabase = require("../database/admin-database");
+const user = require("../models/user");
+const Category = require("../models/category");
+const Product = require("../models/product");
+const Coupon = require("../models/coupon");
+const order = require("../models/order");
+const Banner = require("../models/banner");
 
 module.exports = {
   getadmin: async (req, res) => {
@@ -32,22 +32,38 @@ module.exports = {
         const revenue = await order.aggregate([
           {
             $match: {
-              $or: [{ $and: [{ status: { $eq: 'Delivered' }, payment: { $eq: 'COD' } }] },
-                { $and: [{ status: { $eq: 'Delivered' }, payment: { $eq: 'Razorpay' } }] },
-                { $and: [{ status: { $eq: 'Placed' }, payment: { $eq: 'Razorpay' } }] }],
+              $or: [
+                {
+                  $and: [
+                    { status: { $eq: "Delivered" }, payment: { $eq: "COD" } },
+                  ],
+                },
+                {
+                  $and: [
+                    {
+                      status: { $eq: "Delivered" },
+                      payment: { $eq: "Razorpay" },
+                    },
+                  ],
+                },
+                {
+                  $and: [
+                    { status: { $eq: "Placed" }, payment: { $eq: "Razorpay" } },
+                  ],
+                },
+              ],
             },
           },
 
           {
             $group: {
-              _id: {
-              },
-              totalPrice: { $sum: '$total' },
-              items: { $sum: { $size: '$products' } },
+              _id: {},
+              totalPrice: { $sum: "$total" },
+              items: { $sum: { $size: "$products" } },
               count: { $sum: 1 },
-
             },
-          }, { $sort: { createdAt: -1 } },
+          },
+          { $sort: { createdAt: -1 } },
         ]);
         const date = new Date();
         const day = date.getDate();
@@ -57,73 +73,93 @@ module.exports = {
         const todayrevenue = await order.aggregate([
           {
             $match: {
-              $or: [{ $and: [{ status: { $eq: 'Delivered' }, payment: { $eq: 'COD' } }] },
-                { $and: [{ status: { $eq: 'Delivered' }, payment: { $eq: 'Razorpay' } }] },
-                { $and: [{ status: { $eq: 'Placed' }, payment: { $eq: 'Razorpay' } }] }],
+              $or: [
+                {
+                  $and: [
+                    { status: { $eq: "Delivered" }, payment: { $eq: "COD" } },
+                  ],
+                },
+                {
+                  $and: [
+                    {
+                      status: { $eq: "Delivered" },
+                      payment: { $eq: "Razorpay" },
+                    },
+                  ],
+                },
+                {
+                  $and: [
+                    { status: { $eq: "Placed" }, payment: { $eq: "Razorpay" } },
+                  ],
+                },
+              ],
             },
-          }, {
-            $addFields: { Day: { $dayOfMonth: '$createdAt' }, Month: { $month: '$createdAt' }, Year: { $year: '$createdAt' } },
+          },
+          {
+            $addFields: {
+              Day: { $dayOfMonth: "$createdAt" },
+              Month: { $month: "$createdAt" },
+              Year: { $year: "$createdAt" },
+            },
           },
           { $match: { Day: day, Year: year, Month: month } },
 
           {
             $group: {
-
               _id: {
-                day: { $dayOfMonth: '$createdAt' },
-
+                day: { $dayOfMonth: "$createdAt" },
               },
-              totalPrice: { $sum: '$total' },
-              items: { $sum: { $size: '$products' } },
+              totalPrice: { $sum: "$total" },
+              items: { $sum: { $size: "$products" } },
               count: { $sum: 1 },
-
             },
           },
         ]);
 
         const todaySales = await order.aggregate([
           {
-            $match: { status: { $ne: 'Cancelled' } },
-          }, {
-            $addFields: { Day: { $dayOfMonth: '$createdAt' }, Month: { $month: '$createdAt' }, Year: { $year: '$createdAt' } },
+            $match: { status: { $ne: "Cancelled" } },
+          },
+          {
+            $addFields: {
+              Day: { $dayOfMonth: "$createdAt" },
+              Month: { $month: "$createdAt" },
+              Year: { $year: "$createdAt" },
+            },
           },
           { $match: { Day: day, Year: year, Month: month } },
 
           {
             $group: {
-
               _id: {
-                day: { $dayOfMonth: '$createdAt' },
-
+                day: { $dayOfMonth: "$createdAt" },
               },
-              totalPrice: { $sum: '$total' },
-              items: { $sum: { $size: '$products' } },
+              totalPrice: { $sum: "$total" },
+              items: { $sum: { $size: "$products" } },
               count: { $sum: 1 },
-
             },
           },
         ]);
         const allSales = await order.aggregate([
           {
-            $match: { status: { $ne: 'Cancelled' } },
+            $match: { status: { $ne: "Cancelled" } },
           },
 
           {
             $group: {
-              _id: {
-              },
-              totalPrice: { $sum: '$total' },
-              items: { $sum: { $size: '$products' } },
+              _id: {},
+              totalPrice: { $sum: "$total" },
+              items: { $sum: { $size: "$products" } },
               count: { $sum: 1 },
-
             },
-          }, { $sort: { createdAt: -1 } },
+          },
+          { $sort: { createdAt: -1 } },
         ]);
 
         const orders = order.find();
         orders.count((err, count) => {
           orderCount = count;
-          res.render('admin/dashbord', {
+          res.render("admin/dashbord", {
             admin,
             userCount,
             categoryCount,
@@ -136,21 +172,21 @@ module.exports = {
           });
         });
       } else {
-        res.redirect('/admin/login');
+        res.redirect("/admin/login");
       }
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   adminLogin: (req, res) => {
     try {
       if (req.session.admin) {
-        res.redirect('/admin');
+        res.redirect("/admin");
       } else {
-        res.render('admin/login', { adminloginerr: req.session.loginadminErr });
+        res.render("admin/login", { adminloginerr: req.session.loginadminErr });
       }
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   adminPostLogin: (req, res) => {
@@ -159,69 +195,71 @@ module.exports = {
         if (response1.status) {
           req.session.admin = response1.admin;
           req.session.loggedadmin = true;
-          res.redirect('/admin');
+          res.redirect("/admin");
         } else {
           req.session.loginadminErr = true;
-          res.redirect('/admin/login');
+          res.redirect("/admin/login");
         }
       });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   customers: (req, res) => {
     try {
       adminDatabase.getAllUsers((err, users) => {
-        if (err) { /* empty */ }
-        res.render('admin/customers', { users });
+        if (err) {
+          /* empty */
+        }
+        res.render("admin/customers", { users });
       });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   adminLogout: (req, res) => {
     try {
       req.session.admin = null;
       req.session.loginadminErr = false;
-      res.redirect('/admin/login');
+      res.redirect("/admin/login");
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   block: async (req, res) => {
     try {
       const { id } = req.params;
       await user.findByIdAndUpdate(id, { access: false }, {});
-      res.redirect('/admin/customers');
+      res.redirect("/admin/customers");
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   unblock: async (req, res) => {
     try {
       const { id } = req.params;
       await user.findByIdAndUpdate(id, { access: true }, {});
-      res.redirect('/admin/customers');
+      res.redirect("/admin/customers");
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   // category
   viewCatogory: (req, res) => {
     try {
       adminDatabase.getAllcatogory((err, category) => {
-        res.render('admin/view-category', { category });
+        res.render("admin/view-category", { category });
       });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   getaddCatogory: (req, res) => {
     try {
-      const cat = req.flash('cat');
-      res.render('admin/add-category', { cat });
+      const cat = req.flash("cat");
+      res.render("admin/add-category", { cat });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
 
@@ -237,23 +275,23 @@ module.exports = {
       const categoryName = getCategoryName.toUpperCase();
       const category = await Category.findOne({ name: categoryName });
       if (category) {
-        req.flash('cat', 'This Category is already entered');
-        res.redirect('/admin/add-category');
+        req.flash("cat", "This Category is already entered");
+        res.redirect("/admin/add-category");
       } else {
         const newCategory = new Category({
           name: categoryName,
           description: req.body.description,
           image: imageUrl,
         });
-        newCategory.save().then(() => {
-          res.redirect('/admin/view-category');
-        })
-          .catch(() => {
-
-          });
+        newCategory
+          .save()
+          .then(() => {
+            res.redirect("/admin/view-category");
+          })
+          .catch(() => {});
       }
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   Deletecatogry: (req, res) => {
@@ -264,7 +302,7 @@ module.exports = {
         res.json({ status: true });
       });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   updateCategory: (req, res) => {
@@ -275,20 +313,22 @@ module.exports = {
         const imageUrl = image[0].path.substring(6);
         category.image = imageUrl;
       }
-      adminDatabase.updateCategory(req.params.id, req.body, category.image).then(() => {
-        res.redirect('/admin/view-category');
-      });
+      adminDatabase
+        .updateCategory(req.params.id, req.body, category.image)
+        .then(() => {
+          res.redirect("/admin/view-category");
+        });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   updateCategoryGet: async (req, res) => {
     try {
       const category = await adminDatabase.getcategorydetials(req.query.id);
 
-      res.render('admin/edit-category', { category });
+      res.render("admin/edit-category", { category });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   //  product
@@ -297,21 +337,21 @@ module.exports = {
     try {
       adminDatabase.getAllProduct((err, product, cdate) => {
         adminDatabase.getAllcatogory((errs, category) => {
-          res.render('admin/view-products', { product, cdate, category });
+          res.render("admin/view-products", { product, cdate, category });
         });
       });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   addProducts: (req, res) => {
     try {
       adminDatabase.getAllcatogory((err, category) => {
-        const productMsg = req.flash('product');
-        res.render('admin/add-product', { category, productMsg });
+        const productMsg = req.flash("product");
+        res.render("admin/add-product", { category, productMsg });
       });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   addPostProducts: async (req, res) => {
@@ -321,13 +361,13 @@ module.exports = {
       const productName = getProductName.toUpperCase();
       const product = await Product.findOne({ title: productName });
       if (product) {
-        req.flash('product', 'This Product is already entered');
-        res.redirect('/admin/add-product');
+        req.flash("product", "This Product is already entered");
+        res.redirect("/admin/add-product");
       } else if (!image) {
-        req.flash('product', 'image not found');
-        res.redirect('/admin/add-product');
+        req.flash("product", "image not found");
+        res.redirect("/admin/add-product");
         // eslint-disable-next-line no-undef
-        error = '';
+        error = "";
       } else {
         let imageUrl = image[0].path;
         imageUrl = imageUrl.substring(6);
@@ -341,13 +381,17 @@ module.exports = {
             arrimg.push(arr[i].path.substring(6));
           });
         }
-        adminDatabase.addProducts(req.body, imageUrl, arrimg, productName, () => {
-
-        });
-        res.redirect('/admin/view-products');
+        adminDatabase.addProducts(
+          req.body,
+          imageUrl,
+          arrimg,
+          productName,
+          () => {}
+        );
+        res.redirect("/admin/view-products");
       }
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   deleteProduct: (req, res) => {
@@ -357,7 +401,7 @@ module.exports = {
         res.json({ status: true });
       });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   editProduct: (req, res) => {
@@ -379,11 +423,13 @@ module.exports = {
         });
       }
 
-      adminDatabase.editProduct(id, req.body, cat.image, cat.imgarr).then(() => {
-        res.redirect('/admin/view-products');
-      });
+      adminDatabase
+        .editProduct(id, req.body, cat.image, cat.imgarr)
+        .then(() => {
+          res.redirect("/admin/view-products");
+        });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   editproductget: async (req, res) => {
@@ -394,27 +440,27 @@ module.exports = {
 
       const category = await Category.find();
 
-      res.render('admin/edit-product', { product, category });
+      res.render("admin/edit-product", { product, category });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   // coupens
   addCoupon: (req, res) => {
     try {
-      const couponMsg = req.flash('coupon');
-      res.render('admin/add-coupon', { couponMsg });
+      const couponMsg = req.flash("coupon");
+      res.render("admin/add-coupon", { couponMsg });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   viewCoupon: (req, res) => {
     try {
       adminDatabase.getAllCoupon((err, cop) => {
-        res.render('admin/coupons', { cop });
+        res.render("admin/coupons", { cop });
       });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   addPostCoupon: async (req, res) => {
@@ -423,16 +469,14 @@ module.exports = {
       const code = getCode.toUpperCase();
       const coupon = await Coupon.findOne({ code });
       if (coupon) {
-        req.flash('coupon', 'This Coupon is already entered');
-        res.redirect('/admin/add-coupon');
+        req.flash("coupon", "This Coupon is already entered");
+        res.redirect("/admin/add-coupon");
       } else {
-        adminDatabase.addCoupon(req.body, code, () => {
-
-        });
-        res.redirect('/admin/view-coupons');
+        adminDatabase.addCoupon(req.body, code, () => {});
+        res.redirect("/admin/view-coupons");
       }
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
 
@@ -443,7 +487,7 @@ module.exports = {
         res.json({ status: true });
       });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   editCoupon: async (req, res) => {
@@ -453,10 +497,10 @@ module.exports = {
       const cre = coupons.createdAt;
 
       adminDatabase.editCoupon(id, req.body, cre).then(() => {
-        res.redirect('/admin/view-coupons');
+        res.redirect("/admin/view-coupons");
       });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   editCouponGet: async (req, res) => {
@@ -467,105 +511,123 @@ module.exports = {
       let Difference = [];
       req.session.exp = coupons.expireAfter;
 
-      const DifferenceInTime = coupons.expireAfter.getTime() - coupons.createdAt.getTime();
+      const DifferenceInTime =
+        coupons.expireAfter.getTime() - coupons.createdAt.getTime();
 
       // To calculate the no. of days between two dates
       Difference = DifferenceInTime / (1000 * 3600 * 24);
 
-      res.render('admin/edit-coupon', { coupons, Difference });
+      res.render("admin/edit-coupon", { coupons, Difference });
     } catch (err) {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   viewOrders: async (req, res) => {
     try {
-      order.find().populate('userid').where()
+      order
+        .find()
+        .populate("userid")
+        .where()
         .exec((errs, users) => {
-          if (users)users.reverse();
+          if (users) users.reverse();
 
-          order.find().populate('products.item').where()
+          order
+            .find()
+            .populate("products.item")
+            .where()
             .exec((err, orders) => {
-              if (orders)orders.reverse();
+              if (orders) orders.reverse();
 
-              res.render('admin/view-orders', {
-                orders, users,
+              res.render("admin/view-orders", {
+                orders,
+                users,
               });
             });
         });
     } catch (e) {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   changeStatus: (req, res) => {
     try {
       const value = req.query.s;
-      if (value === 'Delivered' || value === 'Cancelled') {
-        order.updateOne(
-          { _id: req.query.id },
-          { $set: { status: req.query.s } },
-        ).then(() => {
-          res.json({ status: false, value });
-        });
+      if (value === "Delivered" || value === "Cancelled") {
+        order
+          .updateOne({ _id: req.query.id }, { $set: { status: req.query.s } })
+          .then(() => {
+            res.json({ status: false, value });
+          });
       } else {
-        order.updateOne(
-          { _id: req.query.id },
-          { $set: { status: req.query.s } },
-        ).then(() => {
-          res.json({ status: true });
-        });
+        order
+          .updateOne({ _id: req.query.id }, { $set: { status: req.query.s } })
+          .then(() => {
+            res.json({ status: true });
+          });
       }
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   salesReport: async (req, res) => {
     try {
       const sales = await order.aggregate([
-        { $match: { status: { $eq: 'Delivered' } } },
+        { $match: { status: { $eq: "Delivered" } } },
         {
           $group: {
             _id: {
-              year: { $year: '$createdAt' },
-              month: { $month: '$createdAt' },
-              day: { $dayOfMonth: '$createdAt' },
+              year: { $year: "$createdAt" },
+              month: { $month: "$createdAt" },
+              day: { $dayOfMonth: "$createdAt" },
             },
-            totalPrice: { $sum: '$total' },
-            items: { $sum: { $size: '$products' } },
+            totalPrice: { $sum: "$total" },
+            items: { $sum: { $size: "$products" } },
             count: { $sum: 1 },
-
           },
-        }, {
+        },
+        {
           $sort: {
-            '_id.year': -1,
-            '_id.month': -1,
-            '_id.day': -1,
+            "_id.year": -1,
+            "_id.month": -1,
+            "_id.day": -1,
           },
         },
       ]);
 
-      res.render('admin/day-report', { sales });
+      res.render("admin/day-report", { sales });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   monthReport: async (req, res) => {
     try {
-      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
       const sale = await order.aggregate([
-        { $match: { status: { $eq: 'Delivered' } } },
+        { $match: { status: { $eq: "Delivered" } } },
         {
           $group: {
             _id: {
-
-              month: { $month: '$createdAt' },
-
+              month: { $month: "$createdAt" },
             },
-            totalPrice: { $sum: '$total' },
-            items: { $sum: { $size: '$products' } },
+            totalPrice: { $sum: "$total" },
+            items: { $sum: { $size: "$products" } },
             count: { $sum: 1 },
-
           },
-        }, { $sort: { createdAt: 1 } }]);
+        },
+        { $sort: { createdAt: 1 } },
+      ]);
 
       const sales = sale.map((el) => {
         const newOne = { ...el };
@@ -574,51 +636,63 @@ module.exports = {
         return newOne;
       });
 
-      res.render('admin/month-report', { sales });
+      res.render("admin/month-report", { sales });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   yearReport: async (req, res) => {
     try {
       const sales = await order.aggregate([
-        { $match: { status: { $eq: 'Delivered' } } },
+        { $match: { status: { $eq: "Delivered" } } },
         {
           $group: {
             _id: {
-              year: { $year: '$createdAt' },
-
+              year: { $year: "$createdAt" },
             },
-            totalPrice: { $sum: '$total' },
-            items: { $sum: { $size: '$products' } },
+            totalPrice: { $sum: "$total" },
+            items: { $sum: { $size: "$products" } },
             count: { $sum: 1 },
-
           },
-        }, { $sort: { '_id.year': -1 } }]);
+        },
+        { $sort: { "_id.year": -1 } },
+      ]);
 
-      res.render('admin/year-report', { sales });
+      res.render("admin/year-report", { sales });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   chart1: async (req, res) => {
     try {
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
       const sale = await order.aggregate([
-        { $match: { status: { $eq: 'Delivered' } } },
+        { $match: { status: { $eq: "Delivered" } } },
         {
           $group: {
             _id: {
-
-              month: { $month: '$createdAt' },
-
+              month: { $month: "$createdAt" },
             },
-            totalPrice: { $sum: '$total' },
-            items: { $sum: { $size: '$products' } },
+            totalPrice: { $sum: "$total" },
+            items: { $sum: { $size: "$products" } },
             count: { $sum: 1 },
-
           },
-        }, { $sort: { '_id.month': -1 } }]);
+        },
+        { $sort: { "_id.month": -1 } },
+      ]);
 
       const salesRep = sale.map((el) => {
         const newOne = { ...el };
@@ -629,79 +703,108 @@ module.exports = {
 
       res.json({ salesRep });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   chart2: async (req, res) => {
     try {
       const sales = await order.aggregate([
-        { $match: { status: { $ne: 'Cancelled' } } },
+        { $match: { status: { $ne: "Cancelled" } } },
         {
           $group: {
             _id: {
-              year: { $year: '$createdAt' },
-              month: { $month: '$createdAt' },
-              day: { $dayOfMonth: '$createdAt' },
+              year: { $year: "$createdAt" },
+              month: { $month: "$createdAt" },
+              day: { $dayOfMonth: "$createdAt" },
             },
-            totalPrice: { $sum: '$total' },
-            items: { $sum: { $size: '$products' } },
+            totalPrice: { $sum: "$total" },
+            items: { $sum: { $size: "$products" } },
             count: { $sum: 1 },
-
           },
-        }, { $sort: { createdAt: -1 } },
+        },
+        { $sort: { createdAt: -1 } },
       ]);
       res.json({ sales });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   chart3: async (req, res) => {
     try {
       const sales = await order.aggregate([
-        { $match: { status: { $ne: 'Cancelled' } } },
+        { $match: { status: { $ne: "Cancelled" } } },
         {
           $group: {
             _id: {
-              year: { $year: '$createdAt' },
-
+              year: { $year: "$createdAt" },
             },
-            totalPrice: { $sum: '$total' },
-            items: { $sum: { $size: '$products' } },
+            totalPrice: { $sum: "$total" },
+            items: { $sum: { $size: "$products" } },
             count: { $sum: 1 },
-
           },
-        }, { $sort: { createdAt: -1 } }]);
+        },
+        { $sort: { createdAt: -1 } },
+      ]);
 
       res.json({ sales });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
   chart4: async (req, res) => {
     try {
-      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
       const revenue = await order.aggregate([
         {
           $match: {
-            $or: [{ $and: [{ status: { $eq: 'Delivered' }, payment: { $eq: 'COD' } }] },
-              { $and: [{ status: { $eq: 'Delivered' }, payment: { $eq: 'Razorpay' } }] },
-              { $and: [{ status: { $eq: 'Placed' }, payment: { $eq: 'Razorpay' } }] }],
+            $or: [
+              {
+                $and: [
+                  { status: { $eq: "Delivered" }, payment: { $eq: "COD" } },
+                ],
+              },
+              {
+                $and: [
+                  {
+                    status: { $eq: "Delivered" },
+                    payment: { $eq: "Razorpay" },
+                  },
+                ],
+              },
+              {
+                $and: [
+                  { status: { $eq: "Placed" }, payment: { $eq: "Razorpay" } },
+                ],
+              },
+            ],
           },
         },
 
         {
           $group: {
             _id: {
-
-              month: { $month: '$createdAt' },
-
+              month: { $month: "$createdAt" },
             },
-            totalPrice: { $sum: '$total' },
-            items: { $sum: { $size: '$products' } },
+            totalPrice: { $sum: "$total" },
+            items: { $sum: { $size: "$products" } },
             count: { $sum: 1 },
-
           },
-        }, { $sort: { createdAt: -1 } }]);
+        },
+        { $sort: { createdAt: -1 } },
+      ]);
       const sales = revenue.map((el) => {
         const newOne = el;
         // eslint-disable-next-line no-underscore-dangle
@@ -711,17 +814,17 @@ module.exports = {
 
       res.json({ sales });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
 
   viewBanner: (req, res) => {
     try {
       adminDatabase.getAllBanner((err, ban) => {
-        res.render('admin/view-banner', { ban });
+        res.render("admin/view-banner", { ban });
       });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
 
@@ -740,13 +843,14 @@ module.exports = {
         image: imageUrl,
         url: req.body.url,
       });
-      bann.save().then(() => {
-        res.redirect('/admin/view-banner');
-      }).catch(() => {
-
-      });
+      bann
+        .save()
+        .then(() => {
+          res.redirect("/admin/view-banner");
+        })
+        .catch(() => {});
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
 
@@ -757,8 +861,7 @@ module.exports = {
         res.json({ status: true });
       });
     } catch {
-      res.redirect('/error');
+      res.redirect("/error");
     }
   },
-
 };

@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const accountSid = process.env.SID;
 const authToken = process.env.TOKEN;
 const serviceid = process.env.SSID;
@@ -9,7 +8,6 @@ function sendotp(phone) {
     .services(serviceid)
     .verifications
     .create({ to: `+91${phone}`, channel: 'sms' })
-    // eslint-disable-next-line no-console
     .then((verification) => console.log(verification.status));
 }
 

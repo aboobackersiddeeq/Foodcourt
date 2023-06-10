@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const Razorpay = require('razorpay');
@@ -37,7 +37,6 @@ module.exports = {
 
     const cartuser = await Cart1.findOne({ userid });
     if (cartuser) {
-      // eslint-disable-next-line eqeqeq
       const proExit = cartuser.proid.findIndex((proid) => proid.item === prid);
 
       if (proExit !== -1) {
@@ -66,15 +65,12 @@ module.exports = {
         .where()
         .exec((err, pro) => {
           pro.reverse();
-          // eslint-disable-next-line no-underscore-dangle
           callback(err, pro[0].proid, pro[0]._id);
         });
     } else {
-      // eslint-disable-next-line no-undef
       callback();
     }
   },
-  // eslint-disable-next-line no-async-promise-executor
   getCartCount: (userid) => new Promise(async (resolve) => {
     let count = 0;
     const carts = await Cart1.findOne({ userid });
@@ -85,12 +81,10 @@ module.exports = {
   }),
   changeCartQuntity: (details) => {
     let c = details.count;
-    // eslint-disable-next-line no-param-reassign
     details.quantity = parseInt(details.quantity, 10);
     c = parseInt(c, 10);
 
     return new Promise((resolve) => {
-      // eslint-disable-next-line eqeqeq, no-mixed-operators
       if (details.count == -1 && details.quantity === 1 || details.count == -2) {
         Cart1.updateOne(
           { _id: details.cart },
@@ -128,7 +122,6 @@ module.exports = {
       callback(0);
     }
   },
-  // eslint-disable-next-line no-async-promise-executor
   placeOrder: (body) => new Promise(async (resolve) => {
     const carts = await Cart1.find({ usreid: body.userid });
     const product = carts[0].proid;
@@ -144,7 +137,6 @@ module.exports = {
     });
     await orders.save().then(async (newOne) => {
       await Cart1.deleteOne({ userid: body.userid });
-      // eslint-disable-next-line no-underscore-dangle
       resolve(newOne._id);
     });
   }),
@@ -181,7 +173,6 @@ module.exports = {
   addWishlist: async (prid, userid) => {
     const wishlistuser = await Wishlist.findOne({ userid });
     if (wishlistuser) {
-      // eslint-disable-next-line eqeqeq
       const proExit = wishlistuser.proid.findIndex((proid) => proid == prid);
 
       if (proExit === -1) {
@@ -220,7 +211,6 @@ module.exports = {
 
     });
   },
-  // eslint-disable-next-line no-async-promise-executor
   getwishlistCount: (userid) => new Promise(async (resolve) => {
     let count = 0;
     const wishlist = await Wishlist.findOne({ userid });

@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 module.exports = {
   verifyUser: (req, res, next) => {
     if (req.session.loggedIn) {

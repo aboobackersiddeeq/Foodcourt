@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 const admin1 = require('../models/admin');
 const User2 = require('../models/user');
 const category1 = require('../models/category');
